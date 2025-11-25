@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+# The below metadata relates to the deployment itself
+metadata:
+  name: nginx-deployment
+  labels:
+  # Using app the KEY is a convention not a syntax rule
+  # It is possible to additional key-value pairs
+    app: nginx-deploy-test-env
+spec:
+  replicas: 5
+  # This selector is about the Pods - MOST CRITICAL
+  selector:
+    matchLabels:
+      app: nginx-app-test # Calling this A
+  # This defines the blueprint to be used for each Pod
+  template:
+    metadata:
+      name: nginx-test # Name of the label itself, it can be optional
+      labels:
+        app: nginx-app-test # Calling this B
+    # A and B MUST MATCH
+    spec:
+      containers:
+        - name: nginx-containers
+          image: nginx
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+              protocol: TCP
+      restartPolicy: Always
