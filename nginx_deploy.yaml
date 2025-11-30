@@ -8,7 +8,7 @@ metadata:
   # It is possible to additional key-value pairs
     app: nginx-deploy-test-env
 spec:
-  replicas: 5
+  replicas: 1
   # This selector is about the Pods - MOST CRITICAL
   selector:
     matchLabels:
